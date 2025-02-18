@@ -1,0 +1,31 @@
+function void draw(int location) {
+	var int memAddress; 
+	let memAddress = 16384+location;
+	// column 0
+	// column -4
+	do Memory.poke(memAddress -4, -9216);
+	do Memory.poke(memAddress +28, -512);
+	do Memory.poke(memAddress +60, 29440);
+	do Memory.poke(memAddress +92, 8576);
+	do Memory.poke(memAddress +124, 384);
+	do Memory.poke(memAddress +156, 384);
+	do Memory.poke(memAddress +188, 768);
+	do Memory.poke(memAddress +220, 1536);
+	do Memory.poke(memAddress +252, -29696);
+	do Memory.poke(memAddress +284, -10240);
+	do Memory.poke(memAddress +316, 28672);
+	// column -3
+	do Memory.poke(memAddress -3, 1);
+	do Memory.poke(memAddress +29, 3);
+	do Memory.poke(memAddress +61, 6);
+	do Memory.poke(memAddress +93, 12);
+	do Memory.poke(memAddress +125, 12);
+	do Memory.poke(memAddress +157, 12);
+	do Memory.poke(memAddress +189, 6);
+	do Memory.poke(memAddress +221, 3);
+	do Memory.poke(memAddress +253, 1);
+	do Memory.poke(memAddress +285, 0);
+	// column -2
+	// column -1
+	return;
+}

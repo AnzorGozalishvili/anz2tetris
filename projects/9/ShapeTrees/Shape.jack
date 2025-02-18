@@ -1,0 +1,265 @@
+/** Represents a falling shape in the game */
+class Shape {
+    static int nextShape;    // Static counter for next shape to create
+    field int x, y;           // Position of shape
+    field int size;          // Size of the shape (for now, make it simple square)
+    field boolean isFalling;  // Whether shape is currently falling
+    field Array blocks;      // Array to store shape blocks
+    field int blockCount;    // Number of blocks in shape
+    
+    /** Initializes the shape system */
+    function void init() {
+        let nextShape = 1;  // Start with shape 1 instead of 10
+        return;
+    }
+    
+    /** Creates a new shape */
+    constructor Shape new(int startX, int startY) {
+        let x = startX;
+        let y = startY;
+        let size = 16;  // Reduce block size from 32 to 16
+        let isFalling = true;
+        let blocks = Array.new(12);  // Max 6 blocks × 2 coordinates
+        let blockCount = 0;
+        do initializeShape(nextShape);
+        
+        // Increment shape counter
+        let nextShape = nextShape + 1;  // Always increment, removed the condition
+        return this;
+    }
+    
+    /** Initializes specific shape type */
+    method void initializeShape(int shapeType) {
+        if (shapeType = 1) {
+            // Shape 1: [1][1][1]
+            do addBlock(0, 0);
+            do addBlock(8, 0);
+            do addBlock(16, 0);
+        }
+        if (shapeType = 2) {
+            // Shape 2: [2][2]
+            //           [2][2]
+            do addBlock(0, 0);
+            do addBlock(8, 0);
+            do addBlock(8, 8);
+            do addBlock(16, 8);
+        }
+        if (shapeType = 3) {
+            // Shape 3: [3][3]
+            do addBlock(0, 0);
+            do addBlock(8, 0);
+        }
+        if (shapeType = 4) {
+            // Shape 4:     [4][4]
+            //           [4][4]
+            do addBlock(16, 0);
+            do addBlock(24, 0);
+            do addBlock(8, 8);
+            do addBlock(16, 8);
+        }
+        if (shapeType = 5) {
+            // Shape 5: [5][5]
+            do addBlock(0, 0);
+            do addBlock(8, 0);
+        }
+        if (shapeType = 6) {
+            // Shape 6: [6]
+            //         [6][6]
+            //           [6][6]
+            do addBlock(0, 0);      // Top single block
+            do addBlock(0, 8);     // Left middle block
+            do addBlock(8, 8);    // Right middle block
+            do addBlock(8, 16);    // Left bottom block
+            do addBlock(16, 16);    // Right bottom block
+        }
+        if (shapeType = 7) {
+            // Shape 7:     [7][7]
+            //         [7][7]
+            do addBlock(16, 0);
+            do addBlock(24, 0);
+            do addBlock(8, 8);
+            do addBlock(16, 8);
+        }
+        if (shapeType = 8) {
+            // Shape 8:       [8]
+            //             [8][8]
+            do addBlock(16, 0);
+            do addBlock(8, 8);
+            do addBlock(16, 8);
+        }
+        if (shapeType = 9) {
+            // Shape 9: [9][9]
+            //           [9]
+            do addBlock(0, 0);
+            do addBlock(8, 0);
+            do addBlock(8, 8);
+        }
+        if (shapeType = 10) {  // 'a'
+            // Shape a:     [a][a][a]
+            //          [a][a]        // Shifted right by one
+            do addBlock(16, 0);     // Top row, first block
+            do addBlock(24, 0);     // Top row, middle block
+            do addBlock(32, 0);     // Top row, last block
+            do addBlock(8, 8);    // Bottom row, first block (shifted right)
+            do addBlock(16, 8);    // Bottom row, second block (shifted right)
+        }
+        if (shapeType = 11) {  // 'b'
+            // Shape b: [b]
+            do addBlock(24, 0);     // Single block at position [3,0]
+        }
+        if (shapeType = 12) {  // 'c'
+            // Shape c:     [c][c]
+            //               [c]
+            //              [c][c]    // Shifted right by one
+            //                [c]     // Shifted right by two
+            do addBlock(24, 0);     // Top row, first block
+            do addBlock(32, 0);     // Top row, second block
+            do addBlock(32, 8);     // Second row
+            do addBlock(32, 16);    // Third row, first block
+            do addBlock(40, 16);    // Third row, second block
+            do addBlock(40, 24);    // Bottom block (shifted right by two)
+        }
+        if (shapeType = 13) {  // 'd'
+            // Shape d:         [d][d]
+            //                   [d]
+            do addBlock(24, 0);    // Top row, first block
+            do addBlock(32, 0);    // Top row, second block
+            do addBlock(32, 8);   // Bottom block
+        }
+        if (shapeType = 14) {  // 'e'
+            // Shape e:         [e]
+            //         [e][e][e][e][e]
+            //           [e]    // Second position on new bottom row
+            do addBlock(24, 0);     // Top block
+            do addBlock(0, 8);      // Bottom row blocks
+            do addBlock(8, 8);
+            do addBlock(16, 8);
+            do addBlock(24, 8);
+            do addBlock(32, 8);
+            do addBlock(8, 16);    // Added block on second position of new bottom row
+        }
+        if (shapeType = 15) {  // 'f'
+            // Shape f: [f]
+            do addBlock(64, 0);    // Single block at position [7,0]
+        }
+        if (shapeType = 16) {  // 'g'
+            // Shape g: [g]
+            do addBlock(80, 0);    // Single block at position [9,0]
+        }
+        return;
+    }
+    
+    /** Adds a block to the shape */
+    method void addBlock(int relX, int relY) {
+        let blocks[blockCount] = relX;
+        let blocks[blockCount + 1] = relY;
+        let blockCount = blockCount + 2;
+        return;
+    }
+    
+    /** Creates a random shape at the top of the game area */
+    function Shape createRandom() {
+        if (nextShape > 16) {
+            return null;
+        }
+        return Shape.new(256, 0);     // Start at middle horizontally, top of screen
+    }
+    
+    /** Disposes this shape */
+    method void dispose() {
+        do Memory.deAlloc(blocks);
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Draws this shape */
+    method void draw() {
+        var int i, blockX, blockY;
+        let i = 0;
+        do Screen.setColor(true);
+        while (i < blockCount) {
+            let blockX = x + blocks[i];
+            let blockY = y + blocks[i + 1];
+            do Screen.drawRectangle(blockX, blockY, 
+                                  blockX + 7, blockY + 7);
+            let i = i + 2;
+        }
+        return;
+    }
+    
+    /** Erases this shape */
+    method void erase() {
+        var int i, blockX, blockY;
+        let i = 0;
+        do Screen.setColor(false);
+        while (i < blockCount) {
+            let blockX = x + blocks[i];
+            let blockY = y + blocks[i + 1];
+            do Screen.drawRectangle(blockX, blockY, 
+                                  blockX + 7, blockY + 7);
+            let i = i + 2;
+        }
+        return;
+    }
+    
+    /** Moves shape left */
+    method void moveLeft() {
+        if (x > 0) {  // Allow movement across entire screen
+            let x = x - 8;  // Move half distance
+        }
+        return;
+    }
+    
+    /** Moves shape right */
+    method void moveRight() {
+        if ((x + size) < 511) {  // Full screen width
+            let x = x + 8;
+        }
+        return;
+    }
+    
+    /** Moves shape down */
+    method boolean moveDown() {
+        var int i, blockY;
+        let i = 0;
+        while (i < blockCount) {
+            let blockY = y + blocks[i + 1];
+            if ((blockY + 8) > 255) {  // Full screen height
+                let isFalling = false;
+                return false;
+            }
+            let i = i + 2;
+        }
+        let y = y + 8;
+        return true;
+    }
+    
+    /** Returns whether shape is still falling */
+    method boolean isFalling() {
+        return isFalling;
+    }
+    
+    /** Gets X position */
+    method int getX() {
+        return x;
+    }
+    
+    /** Gets Y position */
+    method int getY() {
+        return y;
+    }
+    
+    /** Gets the number of blocks in the shape */
+    method int getBlockCount() { return blockCount; }
+    
+    /** Gets the X position of a block */
+    method int getBlockX(int i) { return blocks[i]; }
+    
+    /** Gets the Y position of a block */
+    method int getBlockY(int i) { return blocks[i + 1]; }
+    
+    /** Gets the next shape number */
+    function int getNextShape() {
+        return nextShape;
+    }
+} 

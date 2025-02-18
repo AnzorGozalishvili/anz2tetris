@@ -1,0 +1,717 @@
+function Shape.init 0
+    push constant 1
+    pop static 0
+    push constant 0
+    return
+function Shape.new 0
+    push constant 6
+    call Memory.alloc 1
+    pop pointer 0
+    push argument 0
+    pop this 0
+    push argument 1
+    pop this 1
+    push constant 16
+    pop this 2
+    push constant 1
+    neg
+    pop this 3
+    push constant 12
+    call Array.new 1
+    pop this 4
+    push constant 0
+    pop this 5
+    push pointer 0
+    push static 0
+    call Shape.initializeShape 2
+    pop temp 0
+    push static 0
+    push constant 1
+    add
+    pop static 0
+    push pointer 0
+    return
+function Shape.initializeShape 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 1
+    eq
+    not
+    if-goto Shape_1
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_0
+label Shape_1
+label Shape_0
+    push argument 1
+    push constant 2
+    eq
+    not
+    if-goto Shape_3
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_2
+label Shape_3
+label Shape_2
+    push argument 1
+    push constant 3
+    eq
+    not
+    if-goto Shape_5
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_4
+label Shape_5
+label Shape_4
+    push argument 1
+    push constant 4
+    eq
+    not
+    if-goto Shape_7
+    push pointer 0
+    push constant 16
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_6
+label Shape_7
+label Shape_6
+    push argument 1
+    push constant 5
+    eq
+    not
+    if-goto Shape_9
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_8
+label Shape_9
+label Shape_8
+    push argument 1
+    push constant 6
+    eq
+    not
+    if-goto Shape_11
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 0
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 16
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 16
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_10
+label Shape_11
+label Shape_10
+    push argument 1
+    push constant 7
+    eq
+    not
+    if-goto Shape_13
+    push pointer 0
+    push constant 16
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_12
+label Shape_13
+label Shape_12
+    push argument 1
+    push constant 8
+    eq
+    not
+    if-goto Shape_15
+    push pointer 0
+    push constant 16
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_14
+label Shape_15
+label Shape_14
+    push argument 1
+    push constant 9
+    eq
+    not
+    if-goto Shape_17
+    push pointer 0
+    push constant 0
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_16
+label Shape_17
+label Shape_16
+    push argument 1
+    push constant 10
+    eq
+    not
+    if-goto Shape_19
+    push pointer 0
+    push constant 16
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_18
+label Shape_19
+label Shape_18
+    push argument 1
+    push constant 11
+    eq
+    not
+    if-goto Shape_21
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_20
+label Shape_21
+label Shape_20
+    push argument 1
+    push constant 12
+    eq
+    not
+    if-goto Shape_23
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 16
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 40
+    push constant 16
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 40
+    push constant 24
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_22
+label Shape_23
+label Shape_22
+    push argument 1
+    push constant 13
+    eq
+    not
+    if-goto Shape_25
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_24
+label Shape_25
+label Shape_24
+    push argument 1
+    push constant 14
+    eq
+    not
+    if-goto Shape_27
+    push pointer 0
+    push constant 24
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 0
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 16
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 24
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 32
+    push constant 8
+    call Shape.addBlock 3
+    pop temp 0
+    push pointer 0
+    push constant 8
+    push constant 16
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_26
+label Shape_27
+label Shape_26
+    push argument 1
+    push constant 15
+    eq
+    not
+    if-goto Shape_29
+    push pointer 0
+    push constant 64
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_28
+label Shape_29
+label Shape_28
+    push argument 1
+    push constant 16
+    eq
+    not
+    if-goto Shape_31
+    push pointer 0
+    push constant 80
+    push constant 0
+    call Shape.addBlock 3
+    pop temp 0
+    goto Shape_30
+label Shape_31
+label Shape_30
+    push constant 0
+    return
+function Shape.addBlock 0
+    push argument 0
+    pop pointer 0
+    push this 5
+    push this 4
+    add
+    push argument 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 5
+    push constant 1
+    add
+    push this 4
+    add
+    push argument 2
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push this 5
+    push constant 2
+    add
+    pop this 5
+    push constant 0
+    return
+function Shape.createRandom 0
+    push static 0
+    push constant 16
+    gt
+    not
+    if-goto Shape_33
+    push constant 0
+    return
+    goto Shape_32
+label Shape_33
+label Shape_32
+    push constant 256
+    push constant 0
+    call Shape.new 2
+    return
+function Shape.dispose 0
+    push argument 0
+    pop pointer 0
+    push this 4
+    call Memory.deAlloc 1
+    pop temp 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function Shape.draw 3
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+label Shape_34
+    push local 0
+    push this 5
+    lt
+    not
+    if-goto Shape_35
+    push this 0
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    add
+    pop local 1
+    push this 1
+    push local 0
+    push constant 1
+    add
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    add
+    pop local 2
+    push local 1
+    push local 2
+    push local 1
+    push constant 7
+    add
+    push local 2
+    push constant 7
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto Shape_34
+label Shape_35
+    push constant 0
+    return
+function Shape.erase 3
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+    push constant 0
+    call Screen.setColor 1
+    pop temp 0
+label Shape_36
+    push local 0
+    push this 5
+    lt
+    not
+    if-goto Shape_37
+    push this 0
+    push local 0
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    add
+    pop local 1
+    push this 1
+    push local 0
+    push constant 1
+    add
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    add
+    pop local 2
+    push local 1
+    push local 2
+    push local 1
+    push constant 7
+    add
+    push local 2
+    push constant 7
+    add
+    call Screen.drawRectangle 4
+    pop temp 0
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto Shape_36
+label Shape_37
+    push constant 0
+    return
+function Shape.moveLeft 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push constant 0
+    gt
+    not
+    if-goto Shape_39
+    push this 0
+    push constant 8
+    sub
+    pop this 0
+    goto Shape_38
+label Shape_39
+label Shape_38
+    push constant 0
+    return
+function Shape.moveRight 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    push this 2
+    add
+    push constant 511
+    lt
+    not
+    if-goto Shape_41
+    push this 0
+    push constant 8
+    add
+    pop this 0
+    goto Shape_40
+label Shape_41
+label Shape_40
+    push constant 0
+    return
+function Shape.moveDown 2
+    push argument 0
+    pop pointer 0
+    push constant 0
+    pop local 0
+label Shape_42
+    push local 0
+    push this 5
+    lt
+    not
+    if-goto Shape_43
+    push this 1
+    push local 0
+    push constant 1
+    add
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    add
+    pop local 1
+    push local 1
+    push constant 8
+    add
+    push constant 255
+    gt
+    not
+    if-goto Shape_45
+    push constant 0
+    pop this 3
+    push constant 0
+    return
+    goto Shape_44
+label Shape_45
+label Shape_44
+    push local 0
+    push constant 2
+    add
+    pop local 0
+    goto Shape_42
+label Shape_43
+    push this 1
+    push constant 8
+    add
+    pop this 1
+    push constant 1
+    neg
+    return
+function Shape.isFalling 0
+    push argument 0
+    pop pointer 0
+    push this 3
+    return
+function Shape.getX 0
+    push argument 0
+    pop pointer 0
+    push this 0
+    return
+function Shape.getY 0
+    push argument 0
+    pop pointer 0
+    push this 1
+    return
+function Shape.getBlockCount 0
+    push argument 0
+    pop pointer 0
+    push this 5
+    return
+function Shape.getBlockX 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    return
+function Shape.getBlockY 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 1
+    add
+    push this 4
+    add
+    pop pointer 1
+    push that 0
+    return
+function Shape.getNextShape 0
+    push static 0
+    return

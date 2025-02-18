@@ -1,0 +1,396 @@
+/** Controls the ShapeTrees game flow and logic */
+class ShapeTreesGame {
+    field GameView view;        // Handles the display
+    field Shape currentShape;   // Currently falling shape
+    field HeartShape target;    // Target heart shape to match
+    field boolean exit;         // Game exit flag
+    field Array placedShapes;   // Array to store placed shapes
+    field int shapesCount;      // Number of placed shapes
+    field Array grid;    // Grid to track placed blocks
+    field int gridWidth, gridHeight;  // Grid dimensions
+    
+    /** Constructs a new game */
+    constructor ShapeTreesGame new() {
+        var int i;
+        let view = GameView.new();
+        let target = HeartShape.new();
+        let exit = false;
+        let placedShapes = Array.new(10);
+        let shapesCount = 0;
+        
+        // Initialize collision grid (now 64x32 blocks for 8-pixel grid)
+        let gridWidth = 64;   // 512/8 = 64 blocks wide
+        let gridHeight = 32;  // 256/8 = 32 blocks high
+        let grid = Array.new(gridWidth * gridHeight);
+        let i = 0;
+        while (i < (gridWidth * gridHeight)) {
+            let grid[i] = false;
+            let i = i + 1;
+        }
+        
+        // Initialize shape system
+        do Shape.init();
+        
+        // Draw initial game layout
+        do view.drawTarget(target);
+        
+        return this;
+    }
+    
+    /** Disposes of the game resources */
+    method void dispose() {
+        var int i;
+        var Shape shape;
+        
+        do view.dispose();
+        do target.dispose();
+        
+        // Dispose placed shapes
+        let i = 0;
+        while (i < shapesCount) {
+            let shape = placedShapes[i];  // Store array element in a variable first
+            if (~(shape = null)) {
+                do shape.dispose();
+            }
+            let i = i + 1;
+        }
+        do Memory.deAlloc(placedShapes);
+        
+        // Dispose grid
+        do Memory.deAlloc(grid);
+        
+        // Dispose current shape if exists
+        if (~(currentShape = null)) {
+            do currentShape.dispose();
+        }
+        
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Main game loop */
+    method void run() {
+        var char key;
+        var boolean canFall;
+        var int remaining;
+        
+        // Show game intro
+        do Screen.clearScreen();
+        do Output.moveCursor(5, 20);
+        do Output.printString("Shape Trees");
+        do Output.moveCursor(7, 15);
+        do Output.printString("Build a Heart with Falling Shapes!");
+        do Output.moveCursor(10, 15);
+        do Output.printString("Use Left/Right arrows to move shapes");
+        do Output.moveCursor(12, 15);
+        do Output.printString("Press Q to quit anytime");
+        do Output.moveCursor(14, 15);
+        do Output.printString("Press any key to start...");
+        
+        while (Keyboard.keyPressed() = 0) {
+            // Wait for key press
+        }
+        
+        // Draw target heart and wait
+        do Screen.clearScreen();
+        do view.drawTarget(target);
+        do Output.moveCursor(0, 0);
+        do Output.printString("Target Shape:");
+        do Sys.wait(1000);  // Show heart for just 1 second
+        
+        // Clear screen and start game
+        do Screen.clearScreen();
+        do Output.moveCursor(0, 0);
+        do Output.printString("Shapes Left: ");
+        
+        while (~exit) {
+            // Update shapes counter
+            do Output.moveCursor(0, 13);
+            let remaining = 17 - Shape.getNextShape();
+            do Output.printInt(remaining);  // Just print the actual number
+            
+            // Create new shape if needed
+            if (currentShape = null) {
+                do Sys.wait(1000);
+                let currentShape = Shape.createRandom();
+                if (currentShape = null) {
+                    do Screen.clearScreen();
+                    do Output.moveCursor(10, 25);
+                    do Output.printString("Game Over!");
+                    do Output.moveCursor(12, 20);
+                    do Output.printString("All shapes have been placed.");
+                    do Output.moveCursor(14, 22);
+                    do Output.printString("Did you make a heart? If yes - Great job!");
+                    do Output.moveCursor(15, 22);
+                    do Output.printString("If not - Try again, you can do it!");
+                    
+                    // Add footer
+                    do Output.moveCursor(20, 15);
+                    do Output.printString("Author: Anzor Gozalishvili");
+                    do Output.moveCursor(21, 15);
+                    do Output.printString("Date: 31.01.2025");
+                    do Output.moveCursor(22, 15);
+                    do Output.printString("Course: nand2tetris");
+                    
+                    do Sys.wait(3000);
+                    let exit = true;
+                } else {
+                    if (canMove(currentShape, currentShape.getX(), currentShape.getY())) {
+                        do view.drawShape(currentShape);
+                    } else {
+                        let exit = true;  // Game over if can't place new shape
+                    }
+                }
+            }
+            
+            // Handle user input
+            let key = Keyboard.keyPressed();
+            if (key = 130) { do moveLeft(); }     // left arrow
+            if (key = 132) { do moveRight(); }    // right arrow
+            if (key = 81)  { let exit = true; }   // q key
+            
+            // Move shape down
+            if (~(currentShape = null)) {
+                let canFall = canMove(currentShape, currentShape.getX(), currentShape.getY() + 8);  // Check 8 pixels down
+                
+                if (canFall) {
+                    do view.eraseShape(currentShape);
+                    let canFall = currentShape.moveDown();  // Store the result
+                    do view.drawShape(currentShape);
+                    
+                    if (~canFall) {  // If moveDown returned false
+                        do placeShape(currentShape);
+                        let currentShape = null;
+                    }
+                } else {
+                    do placeShape(currentShape);
+                    let currentShape = null;
+                }
+            }
+            
+            // Small delay - double the falling speed delay
+            do Sys.wait(200);  // Increase from 100 to 200ms
+        }
+        return;
+    }
+    
+    /** Updates game state */
+    method void update() {
+        // Add game update logic here
+        return;
+    }
+    
+    /** Checks if position is occupied */
+    method boolean isOccupied(int x, int y) {
+        var int gridX, gridY, index, value;
+        
+        let gridX = x / 8;   // Convert to 8-pixel grid positions
+        let gridY = y / 8;
+        
+        // Check bounds first - return false for out of bounds
+        if (gridX < 0) { return false; }
+        if (gridY < 0) { return false; }
+        
+        if (~(gridX < gridWidth)) { return false; }
+        if (~(gridY < gridHeight)) { return false; }
+        
+        // Get grid value - check exact cell position
+        let index = (gridY * gridWidth) + gridX;
+        let value = grid[index];
+        
+        return (value = 1);
+    }
+    
+    /** Places shape in grid */
+    method void placeShape(Shape shape) {
+        var int i, gridX, gridY, blockX, blockY, index;
+        let i = 0;
+        
+        while (i < shape.getBlockCount()) {
+            // Get block position
+            let blockX = shape.getX() + shape.getBlockX(i);
+            let blockY = shape.getY() + shape.getBlockY(i);
+            
+            // Convert to grid coordinates
+            let gridX = blockX / 8;
+            let gridY = blockY / 8;
+            
+            // Mark grid position as occupied
+            let index = (gridY * gridWidth) + gridX;
+            let grid[index] = 1;
+            
+            let i = i + 2;
+        }
+        return;
+    }
+    
+    /** Checks if shape can move to new position */
+    method boolean canMove(Shape shape, int newX, int newY) {
+        var int i, blockX, blockY;
+        let i = 0;
+        while (i < shape.getBlockCount()) {
+            let blockX = newX + shape.getBlockX(i);
+            let blockY = newY + shape.getBlockY(i);
+            if (isOccupied(blockX, blockY)) { return false; }
+            let i = i + 2;
+        }
+        return true;
+    }
+    
+    /** Moves current shape left */
+    method void moveLeft() {
+        var int newX;
+        if (~(currentShape = null)) {
+            let newX = currentShape.getX() - 8;  // Move by 8 pixels
+            if (canMove(currentShape, newX, currentShape.getY())) {
+                do view.eraseShape(currentShape);
+                do currentShape.moveLeft();
+                do view.drawShape(currentShape);
+            }
+        }
+        return;
+    }
+    
+    /** Moves current shape right */
+    method void moveRight() {
+        var int newX;
+        if (~(currentShape = null)) {
+            let newX = currentShape.getX() + 8;  // Move by 8 pixels
+            if (canMove(currentShape, newX, currentShape.getY())) {
+                do view.eraseShape(currentShape);
+                do currentShape.moveRight();
+                do view.drawShape(currentShape);
+            }
+        }
+        return;
+    }
+    
+    // TODO: Heart shape validation needs to be completed
+    // The following methods are preserved for future implementation
+    // of automatic heart shape detection
+    
+    /* method Array findTopLeft() {
+        var Array result;
+        var int i, j, minX, minY;
+        
+        let result = Array.new(2);
+        let minX = 511;  // Start with max values
+        let minY = 255;
+        
+        let i = 0;
+        while (i < gridHeight) {
+            let j = 0;
+            while (j < gridWidth) {
+                if (grid[(i * gridWidth) + j] = 1) {
+                    if (j * 8 < minX) { let minX = j * 8; }
+                    if (i * 8 < minY) { let minY = i * 8; }
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        
+        let result[0] = minX;
+        let result[1] = minY;
+        return result;
+    } */
+    
+    /* method boolean checkHeartShape() {
+        var Array topLeft;
+        var int startX, startY, offsetX, offsetY, patternIndex;
+        var boolean isMatch;
+        var Array heartPattern;
+        
+        // Get the reference position
+        let topLeft = findTopLeft();
+        let startX = topLeft[0] / 8;
+        let startY = topLeft[1] / 8;
+        
+        // Define heart pattern (1 for block, 0 for empty)
+        let heartPattern = Array.new(130);  // Store the heart pattern
+        do initHeartPattern(heartPattern);
+        
+        // Check each position relative to top-left
+        let isMatch = true;
+        let offsetY = 0;
+        while (offsetY < 13) {  // Heart height
+            let offsetX = 0;
+            while (offsetX < 10) {  // Heart width
+                let patternIndex = (offsetY * 10) + offsetX;
+                if (~(checkBlockMatch(startX + offsetX, startY + offsetY, heartPattern[patternIndex]))) {
+                    let isMatch = false;
+                }
+                let offsetX = offsetX + 1;
+            }
+            let offsetY = offsetY + 1;
+        }
+        
+        do topLeft.dispose();
+        do heartPattern.dispose();
+        return isMatch;
+    } */
+    
+    /* method void initHeartPattern(Array pattern) {
+        var int i;
+        let i = 0;
+        while (i < 130) {  // 13x10 grid
+            let pattern[i] = 0;
+            let i = i + 1;
+        }
+        
+        // Row 0: [0][0][0][b][c][c][0][f][e][g][0][0][0]
+        let pattern[3] = 1;  // b
+        let pattern[4] = 1;  // c
+        let pattern[5] = 1;  // c
+        let pattern[7] = 1;  // f
+        let pattern[8] = 1;  // e
+        let pattern[9] = 1;  // g
+
+        // Row 1: [0][0][a][a][a][c][e][e][e][e][e][0][0]
+        let pattern[15] = 1;  // a
+        let pattern[16] = 1;  // a
+        let pattern[17] = 1;  // a
+        let pattern[18] = 1;  // c
+        let pattern[19] = 1;  // e
+        let pattern[20] = 1;  // e
+        let pattern[21] = 1;  // e
+        let pattern[22] = 1;  // e
+        let pattern[23] = 1;  // e
+
+        // Row 2: [0][a][a][0][0][c][c][e][0][0][d][d][0]
+        let pattern[27] = 1;  // a
+        let pattern[28] = 1;  // a
+        let pattern[31] = 1;  // c
+        let pattern[32] = 1;  // c
+        let pattern[33] = 1;  // e
+        let pattern[36] = 1;  // d
+        let pattern[37] = 1;  // d
+
+        // Row 3: [9][9][0][0][0][0][c][0][0][0][0][d][8]
+        let pattern[39] = 1;  // 9
+        let pattern[40] = 1;  // 9
+        let pattern[45] = 1;  // c
+        let pattern[50] = 1;  // d
+        let pattern[51] = 1;  // 8
+
+        return;
+    } */
+    
+    /* method boolean checkBlockMatch(int x, int y, int expected) {
+        var int index;
+        // Check bounds first
+        if (x < 0) { return false; }
+        if (y < 0) { return false; }
+        if (~(x < gridWidth)) { return false; }
+        if (~(y < gridHeight)) { return false; }
+        
+        // Get grid value and compare with expected
+        let index = (y * gridWidth) + x;
+        if (grid[index] = 1) {
+            if (expected = 1) { return true; }
+            return false;
+        }
+        if (expected = 0) { return true; }
+        return false;
+    } */
+} 

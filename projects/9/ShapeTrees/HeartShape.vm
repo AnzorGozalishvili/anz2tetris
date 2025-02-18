@@ -1,0 +1,385 @@
+function HeartShape.new 0
+    push constant 5
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 0
+    pop this 0
+    push constant 0
+    pop this 1
+    push constant 1
+    pop this 2
+    push constant 1
+    pop this 3
+    push constant 8
+    pop this 4
+    push pointer 0
+    return
+function HeartShape.draw 7
+    push argument 0
+    pop pointer 0
+    push argument 1
+    pop this 0
+    push argument 2
+    pop this 1
+    push this 0
+    push constant 128
+    call Math.multiply 2
+    pop local 0
+    push this 1
+    push constant 128
+    call Math.multiply 2
+    pop local 1
+    push constant 11
+    call Array.new 1
+    pop local 6
+    push constant 0
+    push local 6
+    add
+    push constant 9216
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 6
+    add
+    push constant 512
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 6
+    add
+    push constant 29440
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 6
+    add
+    push constant 8576
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 6
+    add
+    push constant 384
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 6
+    add
+    push constant 384
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 6
+    add
+    push constant 768
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 6
+    add
+    push constant 1536
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push local 6
+    add
+    push constant 29696
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push local 6
+    add
+    push constant 10240
+    neg
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 10
+    push local 6
+    add
+    push constant 28672
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    neg
+    call Screen.setColor 1
+    pop temp 0
+    push constant 0
+    pop local 3
+label HeartShape_0
+    push local 3
+    push constant 11
+    lt
+    not
+    if-goto HeartShape_1
+    push local 3
+    push local 6
+    add
+    pop pointer 1
+    push that 0
+    pop local 5
+    push constant 0
+    pop local 2
+label HeartShape_2
+    push local 2
+    push constant 16
+    lt
+    not
+    if-goto HeartShape_3
+    push local 5
+    push constant 1
+    and
+    pop local 4
+    push local 4
+    push constant 1
+    eq
+    not
+    if-goto HeartShape_5
+    push local 0
+    push local 2
+    push this 4
+    call Math.multiply 2
+    add
+    push local 1
+    push local 3
+    push this 4
+    call Math.multiply 2
+    add
+    push local 0
+    push local 2
+    push constant 1
+    add
+    push this 4
+    call Math.multiply 2
+    add
+    push constant 1
+    sub
+    push local 1
+    push local 3
+    push constant 1
+    add
+    push this 4
+    call Math.multiply 2
+    add
+    push constant 1
+    sub
+    call Screen.drawRectangle 4
+    pop temp 0
+    goto HeartShape_4
+label HeartShape_5
+label HeartShape_4
+    push local 5
+    push constant 2
+    call Math.divide 2
+    pop local 5
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    goto HeartShape_2
+label HeartShape_3
+    push local 3
+    push constant 1
+    add
+    pop local 3
+    goto HeartShape_0
+label HeartShape_1
+    push constant 0
+    push local 6
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 1
+    push local 6
+    add
+    push constant 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 2
+    push local 6
+    add
+    push constant 6
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 3
+    push local 6
+    add
+    push constant 12
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 4
+    push local 6
+    add
+    push constant 12
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 5
+    push local 6
+    add
+    push constant 12
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 6
+    push local 6
+    add
+    push constant 6
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 7
+    push local 6
+    add
+    push constant 3
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 8
+    push local 6
+    add
+    push constant 1
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 9
+    push local 6
+    add
+    push constant 0
+    pop temp 0
+    pop pointer 1
+    push temp 0
+    pop that 0
+    push constant 0
+    pop local 3
+label HeartShape_6
+    push local 3
+    push constant 10
+    lt
+    not
+    if-goto HeartShape_7
+    push local 3
+    push local 6
+    add
+    pop pointer 1
+    push that 0
+    pop local 5
+    push constant 0
+    pop local 2
+label HeartShape_8
+    push local 2
+    push constant 16
+    lt
+    not
+    if-goto HeartShape_9
+    push local 5
+    push constant 1
+    and
+    pop local 4
+    push local 4
+    push constant 1
+    eq
+    not
+    if-goto HeartShape_11
+    push local 0
+    push local 2
+    push constant 16
+    add
+    push this 4
+    call Math.multiply 2
+    add
+    push local 1
+    push local 3
+    push this 4
+    call Math.multiply 2
+    add
+    push local 0
+    push local 2
+    push constant 17
+    add
+    push this 4
+    call Math.multiply 2
+    add
+    push constant 1
+    sub
+    push local 1
+    push local 3
+    push constant 1
+    add
+    push this 4
+    call Math.multiply 2
+    add
+    push constant 1
+    sub
+    call Screen.drawRectangle 4
+    pop temp 0
+    goto HeartShape_10
+label HeartShape_11
+label HeartShape_10
+    push local 5
+    push constant 2
+    call Math.divide 2
+    pop local 5
+    push local 2
+    push constant 1
+    add
+    pop local 2
+    goto HeartShape_8
+label HeartShape_9
+    push local 3
+    push constant 1
+    add
+    pop local 3
+    goto HeartShape_6
+label HeartShape_7
+    push local 6
+    call Array.dispose 1
+    pop temp 0
+    push constant 0
+    return
+function HeartShape.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return

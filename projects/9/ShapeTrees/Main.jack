@@ -1,0 +1,14 @@
+/** Entry point for the ShapeTrees game. */
+class Main {
+    /** Initializes and starts the game */
+    function void main() {
+        var ShapeTreesGame game;
+        
+        // Create and start the game
+        let game = ShapeTreesGame.new();
+        do game.run();
+        do game.dispose();
+        
+        return;
+    }
+} 

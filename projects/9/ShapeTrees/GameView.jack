@@ -1,0 +1,73 @@
+/** Handles all display logic for the ShapeTrees game */
+class GameView {
+    // Screen dimensions
+    field int screenWidth, screenHeight;
+    // Game area boundaries
+    field int gameLeft, gameRight, gameBottom;
+    // Grid settings
+    field int blockSize;        // Size of one block in pixels
+    field int gridWidth;        // Number of blocks horizontally
+    field int gridHeight;       // Number of blocks vertically
+    
+    /** Constructs a new game view */
+    constructor GameView new() {
+        let blockSize = 256;    // Each block is 256x256 pixels (16x larger)
+        
+        let screenWidth = 512;
+        let screenHeight = 256;
+        
+        // Calculate grid dimensions
+        let gridWidth = 64;    // 512/8 = 64 blocks wide
+        let gridHeight = 16;   // Use bottom half (256/2)/8 = 16 blocks high
+        
+        // Set game area - use right half for falling shapes
+        let gameLeft = 32;     // Start at middle (512/2)/8 = 32
+        let gameRight = 63;    // Right edge (512/8)-1 = 63
+        let gameBottom = 31;   // Bottom edge (256/8)-1 = 31
+        
+        // Clear the screen
+        do Screen.clearScreen();
+        return this;
+    }
+    
+    /** Disposes this view */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    /** Draws the target heart shape */
+    method void drawTarget(HeartShape target) {
+        // Draw target heart in center of screen
+        do target.draw(2, 1);  // Position at grid position (2,1) - center horizontally and vertically
+        return;
+    }
+    
+    /** Draws a shape */
+    method void drawShape(Shape shape) {
+        do shape.draw();
+        return;
+    }
+    
+    /** Erases a shape */
+    method void eraseShape(Shape shape) {
+        do shape.erase();
+        return;
+    }
+    
+    /** Draws game borders - now empty but kept for possible future use */
+    method void drawBorders() {
+        return;
+    }
+    
+    /** Draws a block at grid coordinates */
+    method void drawBlock(int gridX, int gridY) {
+        var int screenX, screenY;
+        let screenX = gridX * blockSize;
+        let screenY = gridY * blockSize;
+        do Screen.drawRectangle(screenX, screenY, 
+                              screenX + blockSize - 1, 
+                              screenY + blockSize - 1);
+        return;
+    }
+} 

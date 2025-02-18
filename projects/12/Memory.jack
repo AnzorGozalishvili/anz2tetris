@@ -1,0 +1,112 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+/**
+ * This library provides two services: direct access to the computer's main
+ * memory (RAM), and allocation and recycling of memory blocks. The Hack RAM
+ * consists of 32,768 words, each holding a 16-bit binary number.
+ */ 
+class Memory {
+    static Array ram;            // Direct access to RAM
+    static Array freeList;       // Head of the free list
+    static int heapBase;        // Start of heap memory
+    static int heapEnd;         // End of heap memory
+
+    /** Initializes the class. */
+    function void init() {
+        let ram = 0;            // Points to start of RAM
+        let heapBase = 2048;    // Start of heap
+        let heapEnd = 16384;    // End of heap
+        
+        // Initialize the first free block
+        let freeList = heapBase;
+        let ram[heapBase] = heapEnd - heapBase - 2;  // Total size minus header
+        let ram[heapBase + 1] = 0;                   // Use 0 instead of null
+        
+        return;
+    }
+
+    /** Returns the RAM value at the given address. */
+    function int peek(int address) {
+        return ram[address];
+    }
+
+    /** Sets the RAM value at the given address to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
+    }
+
+    /** Finds an available RAM block of the given size and returns
+     *  a reference to its base address. Uses first-fit algorithm. */
+    function int alloc(int size) {
+        var Array current, previous;
+        var Array result;
+        var int blockSize;
+        
+        // Validate size
+        if (size < 0) {
+            do Sys.error(5);  // Invalid memory size
+            return 0;
+        }
+        
+        // Add 2 words for overhead (size and next pointer)
+        let size = size + 2;
+        let current = freeList;
+        let previous = null;
+        
+        // Search for a block using first-fit
+        while (~(current = null)) {
+            let blockSize = current[0];  // Get current block size
+            
+            // Found a block big enough
+            if (~(blockSize < size)) {   // Changed from >= to ~(< size)
+                // Split the block if it's significantly larger
+                if (blockSize > (size + 3)) {  // +3 for minimum fragment size
+                    let result = current + size;
+                    let result[0] = blockSize - size;
+                    let result[1] = current[1];
+                    let current[0] = size;
+                    
+                    // Update free list
+                    if (previous = null) {
+                        let freeList = result;
+                    } else {
+                        let previous[1] = result;
+                    }
+                } else {
+                    // Use entire block
+                    if (previous = null) {
+                        let freeList = current[1];
+                    } else {
+                        let previous[1] = current[1];
+                    }
+                }
+                return current + 2;  // Skip size and next pointer
+            }
+            
+            let previous = current;
+            let current = current[1];
+        }
+        
+        // No block found
+        do Sys.error(6);  // Out of memory
+        return 0;
+    }
+
+    /** De-allocates the given object (cast as an array) by making
+     *  it available for future allocations. */
+    function void deAlloc(Array o) {
+        var Array block;
+        
+        // Get the block header (2 words before the object)
+        let block = o - 2;
+        
+        // Add block to beginning of free list
+        let block[1] = freeList;
+        let freeList = block;
+        
+        return;
+    }
+}

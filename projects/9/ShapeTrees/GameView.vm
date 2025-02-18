@@ -1,0 +1,90 @@
+function GameView.new 0
+    push constant 8
+    call Memory.alloc 1
+    pop pointer 0
+    push constant 256
+    pop this 5
+    push constant 512
+    pop this 0
+    push constant 256
+    pop this 1
+    push constant 64
+    pop this 6
+    push constant 16
+    pop this 7
+    push constant 32
+    pop this 2
+    push constant 63
+    pop this 3
+    push constant 31
+    pop this 4
+    call Screen.clearScreen 0
+    pop temp 0
+    push pointer 0
+    return
+function GameView.dispose 0
+    push argument 0
+    pop pointer 0
+    push pointer 0
+    call Memory.deAlloc 1
+    pop temp 0
+    push constant 0
+    return
+function GameView.drawTarget 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push constant 2
+    push constant 1
+    call HeartShape.draw 3
+    pop temp 0
+    push constant 0
+    return
+function GameView.drawShape 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Shape.draw 1
+    pop temp 0
+    push constant 0
+    return
+function GameView.eraseShape 0
+    push argument 0
+    pop pointer 0
+    push argument 1
+    call Shape.erase 1
+    pop temp 0
+    push constant 0
+    return
+function GameView.drawBorders 0
+    push argument 0
+    pop pointer 0
+    push constant 0
+    return
+function GameView.drawBlock 2
+    push argument 0
+    pop pointer 0
+    push argument 1
+    push this 5
+    call Math.multiply 2
+    pop local 0
+    push argument 2
+    push this 5
+    call Math.multiply 2
+    pop local 1
+    push local 0
+    push local 1
+    push local 0
+    push this 5
+    add
+    push constant 1
+    sub
+    push local 1
+    push this 5
+    add
+    push constant 1
+    sub
+    call Screen.drawRectangle 4
+    pop temp 0
+    push constant 0
+    return

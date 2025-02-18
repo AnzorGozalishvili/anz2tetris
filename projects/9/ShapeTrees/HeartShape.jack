@@ -1,0 +1,111 @@
+/** Represents the target heart shape to match */
+class HeartShape {
+    field int x, y;    // Grid position
+    field int width;   // Width in blocks
+    field int height;  // Height in blocks
+    field int scale;   // Scale factor for the heart
+    
+    /** Creates a new heart shape */
+    constructor HeartShape new() {
+        let x = 0;
+        let y = 0;
+        let width = 1;
+        let height = 1;
+        let scale = 8;   // Each pixel becomes 8x8 (half size)
+        return this;
+    }
+    
+    /** Draws the heart at specified position */
+    method void draw(int drawX, int drawY) {
+        var int baseX, baseY;
+        var int i, row;
+        var int bit, value;
+        var Array values;
+        
+        let x = drawX;
+        let y = drawY;
+        
+        // Convert grid coordinates to screen coordinates
+        let baseX = x * 128;  // Half the original position (256/2)
+        let baseY = y * 128;  // Half the original position (256/2)
+        
+        // Create array of bitmap values
+        let values = Array.new(11);  // Store all values for column 0
+        let values[0] = -9216;   // memAddress -4
+        let values[1] = -512;    // memAddress +28
+        let values[2] = 29440;   // memAddress +60
+        let values[3] = 8576;    // memAddress +92
+        let values[4] = 384;     // memAddress +124
+        let values[5] = 384;     // memAddress +156
+        let values[6] = 768;     // memAddress +188
+        let values[7] = 1536;    // memAddress +220
+        let values[8] = -29696;  // memAddress +252
+        let values[9] = -10240;  // memAddress +284
+        let values[10] = 28672;  // memAddress +316
+        
+        do Screen.setColor(true);
+        
+        // Draw each row
+        let row = 0;
+        while (row < 11) {  // Process all 11 rows
+            let value = values[row];
+            let i = 0;
+            while (i < 16) {  // For each bit in the value
+                let bit = value & 1;  // Get current bit
+                if (bit = 1) {
+                    do Screen.drawRectangle(
+                        baseX + (i * scale),
+                        baseY + (row * scale),
+                        baseX + ((i + 1) * scale) - 1,
+                        baseY + ((row + 1) * scale) - 1
+                    );
+                }
+                let value = value / 2;  // Move to next bit
+                let i = i + 1;
+            }
+            let row = row + 1;
+        }
+        
+        // Process column -3 values
+        let values[0] = 1;    // memAddress +1
+        let values[1] = 3;    // memAddress +33
+        let values[2] = 6;    // memAddress +65
+        let values[3] = 12;   // memAddress +97
+        let values[4] = 12;   // memAddress +129
+        let values[5] = 12;   // memAddress +161
+        let values[6] = 6;    // memAddress +193
+        let values[7] = 3;    // memAddress +225
+        let values[8] = 1;    // memAddress +257
+        let values[9] = 0;    // memAddress +289
+        
+        // Draw second column
+        let row = 0;
+        while (row < 10) {  // Process 10 rows for second column
+            let value = values[row];
+            let i = 0;
+            while (i < 16) {
+                let bit = value & 1;
+                if (bit = 1) {
+                    do Screen.drawRectangle(
+                        baseX + ((i + 16) * scale),  // Offset by 16 for second column
+                        baseY + (row * scale),
+                        baseX + ((i + 17) * scale) - 1,
+                        baseY + ((row + 1) * scale) - 1
+                    );
+                }
+                let value = value / 2;
+                let i = i + 1;
+            }
+            let row = row + 1;
+        }
+        
+        do values.dispose();
+        return;
+    }
+    
+    /** Disposes this heart shape */
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+} 

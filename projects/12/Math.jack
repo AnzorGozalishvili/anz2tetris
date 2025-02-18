@@ -1,0 +1,173 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Math.jack
+/**
+ *  A library of commonly used mathematical functions.
+ *  All functions runs in O(n), where n is the number of bits used
+ *  for representing a two's complement integer value (16 in the Hack computer). 
+ *  Note: Jack compilers implement multiplication and division
+ *  using calls to OS functions in this class.
+ */
+class Math {
+    static int n;             // Number of bits used for representing a two's complement integer
+    static Array powersOfTwo;  // Array to store powers of 2
+
+    // Initializes the Math library.
+    function void init() {
+        let n = 16;  // 16-bit machine
+        let powersOfTwo = Array.new(16);  // 16-bit numbers
+        let powersOfTwo[0] = 1;
+        let powersOfTwo[1] = 2;
+        let powersOfTwo[2] = 4;
+        let powersOfTwo[3] = 8;
+        let powersOfTwo[4] = 16;
+        let powersOfTwo[5] = 32;
+        let powersOfTwo[6] = 64;
+        let powersOfTwo[7] = 128;
+        let powersOfTwo[8] = 256;
+        let powersOfTwo[9] = 512;
+        let powersOfTwo[10] = 1024;
+        let powersOfTwo[11] = 2048;
+        let powersOfTwo[12] = 4096;
+        let powersOfTwo[13] = 8192;
+        let powersOfTwo[14] = 16384;
+        let powersOfTwo[15] = 16384 + 16384;  // 32768
+        return;
+    }
+
+    /** Returns the product of x and y. 
+     *  When a Jack compiler detects the multiplication operator '*'
+     *  in an expression, it handles it by invoking this method. 
+     *  Thus, in Jack, x * y and Math.multiply(x,y) return the same value. */
+    function int multiply(int x, int y) {
+        var int sum, shiftedX, j;
+        
+        let sum = 0;
+        let shiftedX = x;
+        let j = 0;
+        
+        while (j < n) {
+            if (~((y & powersOfTwo[j]) = 0)) {  // if j-th bit of y is 1
+                let sum = sum + shiftedX;
+            }
+            let shiftedX = shiftedX + shiftedX;  // Double shiftedX
+            let j = j + 1;
+        }
+        
+        return sum;
+    }
+
+    /** Returns the integer part of x / y.
+     *  When a Jack compiler detects the division operator '/'
+     *  an an expression, it handles it by invoking this method.
+     *  Thus, x/y and Math.divide(x,y) return the same value. */
+    function int divide(int x, int y) {
+        var int q;
+        var boolean negative;
+        
+        // Handle division by zero
+        if (y = 0) {
+            do Sys.error(3); // Division by zero error
+            return 0;
+        }
+        
+        // Handle signs
+        let negative = false;
+        if (x < 0) {
+            let x = Math.abs(x);
+            let negative = ~negative;
+        }
+        if (y < 0) {
+            let y = Math.abs(y);
+            let negative = ~negative;
+        }
+        
+        // Special case for y > x
+        if (y > x) {
+            return 0;
+        }
+        
+        // Find largest double of y that's still less than x
+        let q = Math.divide(x, y + y);
+        
+        // If y + y overflowed (became negative)
+        if ((y + y) < 0) {
+            let q = 0;
+            // Just do one comparison to see if we need 1 or 0
+            if (x > y) {
+                let q = 1;
+            }
+            if (negative) {
+                return -q;
+            }
+            return q;
+        }
+        
+        // Compute final result
+        if ((x - (2 * y * q)) < y) {
+            let q = q + q;
+        } else {
+            let q = q + q + 1;
+        }
+        
+        if (negative) {
+            return -q;
+        }
+        return q;
+    }
+
+    /** Returns the integer part of the square root of x. */
+    function int sqrt(int x) {
+        var int y, j, temp, tempSquared;
+        
+        // Handle negative input
+        if (x < 0) {
+            do Sys.error(4);  // Negative number error
+        }
+        
+        let y = 0;
+        let j = 7;  // (n/2)-1, where n=16
+        
+        while (~(j < 0)) {
+            let temp = y + powersOfTwo[j];
+            let tempSquared = temp * temp;
+            // Check if tempSquared <= x and no overflow occurred
+            if (~(tempSquared > x) & (tempSquared > 0)) {
+                let y = temp;
+            }
+            let j = j - 1;
+        }
+        
+        return y;
+    }
+
+    /** Returns the greater value. */
+    function int max(int a, int b) {
+        if (a > b) {
+            return a;
+        }
+        return b;
+    }
+
+    /** Returns the smaller value. */
+    function int min(int a, int b) {
+        if (a < b) {
+            return a;
+        }
+        return b;
+    }
+
+    /** Returns the absolute value of x. */
+    function int abs(int x) {
+        if (x < 0) {
+            return -x;
+        }
+        return x;
+    }
+
+    /** Returns 2 to the power of x. */
+    function int twoToThe(int x) {
+        return powersOfTwo[x];
+    }
+}
