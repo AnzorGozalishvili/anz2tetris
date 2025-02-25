@@ -18,36 +18,47 @@ Nand2Tetris (also known as "From Nand to Tetris" or "The Elements of Computing S
 **[Boolean Logic and Gates](pplx://action/followup)**
    - project: https://drive.google.com/file/d/17Rt3z7_OvpoQNlM6xtmC67Rn3blgM4W5
    - slides: https://drive.google.com/file/d/1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM
+
 **[Boolean Arithmetic and the ALU](pplx://action/followup)**
    - project: https://drive.google.com/file/d/17SzlbKXl0kc5BHsKsKMrOlx-EEpWvq7g
    - slides: https://drive.google.com/file/d/1ie9s3GjM2TrvL7PrEZJ00gEwezgNLOBm 
+
 **[Sequential Logic](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1ArUW8mkh4Kax-2TXGRpjPWuHf70u6_TJ
    - slides: https://drive.google.com/file/d/1boFooygPrxMX-AxzogFYIZ-8QsZiDz96
+
 **[Machine Language](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1orGwC3o74vGv_rk-FDwoJGVvTxWGuQOC
    - slides: https://drive.google.com/file/d/1HxjPmIZkFHl-BVW3qoz8eD9dqEuEyuBI
+
 **[Computer Architecture](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1CJ1ymH6xdC5Z-Da8G0tqowaoOXq1cdbU
    - slides: https://drive.google.com/file/d/1Z_fxYmmRNXTkAzmZ6YMoX9NXZIRVCKiw
+
 **[Assembler](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1CITliwTJzq19ibBF5EeuNBZ3MJ01dKoI
    - slides: https://drive.google.com/file/d/1uKGRMnL-gqk9DsgeN50z0EpHoSMWe6F5 
+
 **[Virtual Machine I](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1DN5Gpjw6uJZuSvGBdXzwm-SHcBEn0PE-
    - slides: https://drive.google.com/file/d/1BPmhMLu_4QTcte0I5bK4QBHI8SACnQSt
+
 **[Virtual Machine II](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1F2cYb2cIPFG0B_GybMcnNUPtc5mq8mHY
    - slides: https://drive.google.com/file/d/1BexrNmdqYhKPkqD_Y81qNAUeyfzl-ZtO
+
 **[High-Level Language](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1O0lZ3oXHhcMrKJJ_byCfz-6Wjgtf7n6q
    - slides: https://drive.google.com/file/d/1CAGF8d3pDIOgqX8NZGzU34PPEzvfTYrk 
+
 **[Compiler I](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1O1nTS24VM2kp_ilTZCrBZOryhTK1e0qN
    - slides: https://drive.google.com/file/d/1CM_w6cxQpYnYHcP-OhNkNU6oD5rMnjzv 
+
 **[Compiler II](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1O-129lGOVNQ8XU7J4z0SGgbp7gPUv0sj
    - slides: https://drive.google.com/file/d/1CYOcXKxfAwRHaOERvoyuNKSwdlxMo_e3 
+
 **[Operating System](pplx://action/followup)**
    - project: https://drive.google.com/file/d/1Qeuor0zqUAR0Q6xGPCuwdfYDAQILjbEm
    - slides: https://drive.google.com/file/d/137PiYjt4CAZ3ROWiD0DJ8XMUbMM0_VHR 
