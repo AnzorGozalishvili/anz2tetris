@@ -2,13 +2,6 @@
 
 This repository contains my implementation of the Nand2Tetris course projects. Nand2Tetris is a course that guides students through building a modern computer system from the ground up, starting with basic logic gates (NAND) all the way to a high-level programming language and operating system.
 
-## Project Structure
-
-The repository is organized into different project folders, each corresponding to a specific part of the computer system:
-
-- Project 12: Operating System
-  - Implementation of core OS classes (Array, String, Memory, Math)
-  - Test programs for verification
 
 ## Technologies Used
 
@@ -17,24 +10,47 @@ The repository is organized into different project folders, each corresponding t
 - Jack Programming Language
 - VM Language
 
+
 ## Course Overview
 
 Nand2Tetris (also known as "From Nand to Tetris" or "The Elements of Computing Systems") takes you through the following layers of abstraction:
 
 **[Boolean Logic and Gates](pplx://action/followup)**
-   1. project description: https://drive.google.com/file/d/17Rt3z7_OvpoQNlM6xtmC67Rn3blgM4W5
-   2. slides: https://drive.google.com/file/d/1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM
+   - project: https://drive.google.com/file/d/17Rt3z7_OvpoQNlM6xtmC67Rn3blgM4W5
+   - slides: https://drive.google.com/file/d/1MY1buFHo_Wx5DPrKhCNSA2cm5ltwFJzM
 **[Boolean Arithmetic and the ALU](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/17SzlbKXl0kc5BHsKsKMrOlx-EEpWvq7g
+   - slides: https://drive.google.com/file/d/1ie9s3GjM2TrvL7PrEZJ00gEwezgNLOBm 
 **[Sequential Logic](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1ArUW8mkh4Kax-2TXGRpjPWuHf70u6_TJ
+   - slides: https://drive.google.com/file/d/1boFooygPrxMX-AxzogFYIZ-8QsZiDz96
 **[Machine Language](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1orGwC3o74vGv_rk-FDwoJGVvTxWGuQOC
+   - slides: https://drive.google.com/file/d/1HxjPmIZkFHl-BVW3qoz8eD9dqEuEyuBI
 **[Computer Architecture](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1CJ1ymH6xdC5Z-Da8G0tqowaoOXq1cdbU
+   - slides: https://drive.google.com/file/d/1Z_fxYmmRNXTkAzmZ6YMoX9NXZIRVCKiw
 **[Assembler](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1CITliwTJzq19ibBF5EeuNBZ3MJ01dKoI
+   - slides: https://drive.google.com/file/d/1uKGRMnL-gqk9DsgeN50z0EpHoSMWe6F5 
 **[Virtual Machine I](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1DN5Gpjw6uJZuSvGBdXzwm-SHcBEn0PE-
+   - slides: https://drive.google.com/file/d/1BPmhMLu_4QTcte0I5bK4QBHI8SACnQSt
 **[Virtual Machine II](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1F2cYb2cIPFG0B_GybMcnNUPtc5mq8mHY
+   - slides: https://drive.google.com/file/d/1BexrNmdqYhKPkqD_Y81qNAUeyfzl-ZtO
 **[High-Level Language](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1O0lZ3oXHhcMrKJJ_byCfz-6Wjgtf7n6q
+   - slides: https://drive.google.com/file/d/1CAGF8d3pDIOgqX8NZGzU34PPEzvfTYrk 
 **[Compiler I](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1O1nTS24VM2kp_ilTZCrBZOryhTK1e0qN
+   - slides: https://drive.google.com/file/d/1CM_w6cxQpYnYHcP-OhNkNU6oD5rMnjzv 
 **[Compiler II](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1O-129lGOVNQ8XU7J4z0SGgbp7gPUv0sj
+   - slides: https://drive.google.com/file/d/1CYOcXKxfAwRHaOERvoyuNKSwdlxMo_e3 
 **[Operating System](pplx://action/followup)**
+   - project: https://drive.google.com/file/d/1Qeuor0zqUAR0Q6xGPCuwdfYDAQILjbEm
+   - slides: https://drive.google.com/file/d/137PiYjt4CAZ3ROWiD0DJ8XMUbMM0_VHR 
 
 
 ## Getting Started
@@ -112,21 +128,17 @@ Implementation of a modern computer from first principles, following the nand2te
     - Software optimizations
     - System improvements
 
-## Resources
-
-- [Official Nand2Tetris Website](https://www.nand2tetris.org/)
-- [Nand2Tetris Course on Coursera](https://www.coursera.org/learn/build-a-computer)
-
-## License
-
-This project is licensed under the terms included in the LICENSE file.
-
 ## Getting Started
 1. Clone this repository
 2. Install required tools from [nand2tetris software](https://www.nand2tetris.org/software)
 3. Follow each project's README for specific instructions
 
+## License
+
+This project is licensed under the terms included in the LICENSE file.
+
 ## Resources
 - [nand2tetris Course](https://www.nand2tetris.org)
 - [Course Materials](https://www.nand2tetris.org/course)
 - [Software Tools](https://www.nand2tetris.org/software)
+- [Nand2Tetris Course on Coursera](https://www.coursera.org/learn/build-a-computer)
